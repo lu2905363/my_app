@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from time import time
 from hashlib import md5
 from app import db, login, app
@@ -21,7 +21,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
-    last_seen = db.Column(db.DateTime, default=datetime.utcnow()+timedelta(hours=8))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow())
     followed = db.relationship(
         'User', secondary=followers,  # right side entity of the relationship; configuring the association table
         primaryjoin=(followers.c.follower_id == id),
@@ -81,7 +81,7 @@ def load_user(id):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):

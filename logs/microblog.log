@@ -1,4 +1,15 @@
-2018-08-25 19:19:27,192 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk2NTQ5LjIyODE1Mzd9.zXOhLZFxLoJ7x1K_EJwc-FfBqZNeXl7hYu72JWgRxd4 [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+2018-08-25 20:14:17,064 ERROR: Exception on / [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1127, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 669, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/dialects/sqlite/base.py", line 610, in process
+    raise TypeError("SQLite DateTime type only accepts Python "
+TypeError: SQLite DateTime type only accepts Python datetime and date objects as input.
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -8,79 +19,62 @@ Traceback (most recent call last):
     reraise(exc_type, exc_value, tb)
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
     raise value
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 174, in reset_password
-    return redirect(url_for('/reset_password/<token>'))
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 356, in url_for
-    return appctx.app.handle_url_build_error(error, endpoint, values)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2061, in handle_url_build_error
-    reraise(exc_type, exc_value, tb)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1811, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2087, in preprocess_request
+    rv = func()
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 15, in before_request
+    db.session.commit()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 153, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 943, in commit
+    self.transaction.commit()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 467, in commit
+    self._prepare_impl()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 447, in _prepare_impl
+    self.session.flush()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2254, in flush
+    self._flush(objects)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2380, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
     raise value
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 345, in url_for
-    force_external=external)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 1776, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.BuildError: Could not build url for endpoint '/reset_password/<token>'. Did you mean 'reset_password' instead?
-2018-08-25 19:20:21,147 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 19:21:09,805 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk2NTQ5LjIyODE1Mzd9.zXOhLZFxLoJ7x1K_EJwc-FfBqZNeXl7hYu72JWgRxd4 [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
-    raise value
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 174, in reset_password
-    return redirect(url_for('/reset_password'))
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 356, in url_for
-    return appctx.app.handle_url_build_error(error, endpoint, values)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2061, in handle_url_build_error
-    reraise(exc_type, exc_value, tb)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
-    raise value
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 345, in url_for
-    force_external=external)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 1776, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.BuildError: Could not build url for endpoint '/reset_password'. Did you mean 'reset_password' instead?
-2018-08-25 19:21:37,435 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 19:21:54,622 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk2NTQ5LjIyODE1Mzd9.zXOhLZFxLoJ7x1K_EJwc-FfBqZNeXl7hYu72JWgRxd4 [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
-    raise value
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 174, in reset_password
-    return redirect(url_for('reset_password'))
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 356, in url_for
-    return appctx.app.handle_url_build_error(error, endpoint, values)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2061, in handle_url_build_error
-    reraise(exc_type, exc_value, tb)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
-    raise value
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 345, in url_for
-    force_external=external)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 1776, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.BuildError: Could not build url for endpoint 'reset_password'. Did you forget to specify values ['token']?
-2018-08-25 19:23:44,161 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 19:25:34,614 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 19:27:03,357 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2344, in _flush
+    flush_context.execute()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 391, in execute
+    rec.execute(self)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 556, in execute
+    uow
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 177, in save_obj
+    mapper, table, update)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 768, in _emit_update_statements
+    execute(statement, multiparams)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 948, in execute
+    return meth(self, multiparams, params)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 269, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1060, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1132, in _execute_context
+    None, None)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1413, in _handle_dbapi_exception
+    exc_info
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 248, in reraise
+    raise value.with_traceback(tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1127, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 669, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/sqlalchemy/dialects/sqlite/base.py", line 610, in process
+    raise TypeError("SQLite DateTime type only accepts Python "
+sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite DateTime type only accepts Python datetime and date objects as input. [SQL: 'UPDATE user SET last_seen=? WHERE user.id = ?'] [parameters: [{'last_seen': '2018-08-25T12:14:17.063303', 'user_id': 3}]]
+2018-08-25 20:16:30,051 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 20:17:11,774 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 20:18:55,671 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 20:20:50,043 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 20:25:31,830 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 20:28:19,149 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
