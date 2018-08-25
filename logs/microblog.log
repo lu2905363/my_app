@@ -1,4 +1,4 @@
-2018-08-25 11:21:58,095 ERROR: Exception on / [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+2018-08-25 12:51:37,681 ERROR: Exception on /user/Jack [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -14,8 +14,8 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
     return func(*args, **kwargs)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 38, in index
-    return render_template('index.html', title='Home', posts=posts)
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 94, in user
+    return render_template('user.html', user=user, posts=posts, next_url=next_url, prev_url=prev_url)
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 135, in render_template
     context, ctx.app)
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 117, in _render
@@ -28,18 +28,13 @@ Traceback (most recent call last):
     reraise(exc_type, exc_value, tb)
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
     raise value.with_traceback(tb)
-  File "/home/lu2905363/PycharmProjects/flask/app/templates/index.html", line 1, in top-level template code
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 1, in top-level template code
     {% extends "base.html" %}
-  File "/home/lu2905363/PycharmProjects/flask/app/templates/base.html", line 30, in top-level template code
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/base.html", line 31, in top-level template code
     {% block content %}{% endblock %}
-  File "/home/lu2905363/PycharmProjects/flask/app/templates/index.html", line 6, in block "content"
-    {{ form.hidden_tag() }}
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 430, in getattr
-    return getattr(obj, attribute)
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2018-08-25 11:23:28,784 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 11:32:11,398 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 11:34:31,724 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 11:50:22,113 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 11:52:45,471 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 11:53:52,689 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 23, in block "content"
+    {% for post in posts %}
+TypeError: 'Pagination' object is not iterable
+2018-08-25 12:52:17,701 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:52:56,317 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:53:44,801 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
