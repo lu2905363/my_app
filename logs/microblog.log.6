@@ -1,0 +1,117 @@
+2018-08-25 12:33:09,358 ERROR: Exception on /user/Jack [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 94, in user
+    return render_template('user.html', user=user, posts=posts)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 135, in render_template
+    context, ctx.app)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 117, in _render
+    rv = template.render(context)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/base.html", line 31, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 23, in block "content"
+    {% for post in posts %}
+TypeError: 'Pagination' object is not iterable
+2018-08-25 12:36:18,866 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:36:23,069 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:37:16,989 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:37:21,428 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:41:58,887 ERROR: Exception on /user/Jack [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 94, in user
+    return render_template('user.html', user=user, posts=posts)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 135, in render_template
+    context, ctx.app)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 117, in _render
+    rv = template.render(context)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/base.html", line 31, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 23, in block "content"
+    {% for post in posts %}
+TypeError: 'Pagination' object is not iterable
+2018-08-25 12:47:28,403 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:49:08,501 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 12:49:12,607 ERROR: Exception on /user/Jack [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 94, in user
+    return render_template('user.html', user=user, posts=posts,)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 135, in render_template
+    context, ctx.app)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 117, in _render
+    rv = template.render(context)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/base.html", line 31, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 23, in block "content"
+    {% for post in posts %}
+TypeError: 'Pagination' object is not iterable
