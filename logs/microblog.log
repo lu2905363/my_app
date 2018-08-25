@@ -1,4 +1,25 @@
-2018-08-25 12:51:37,681 ERROR: Exception on /user/Jack [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+2018-08-25 18:27:26,685 ERROR: Exception on /reset_password_request [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 427, in send
+    connection.send(self)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 192, in send
+    message.rcpt_options)
+  File "/usr/lib/python3.6/smtplib.py", line 852, in sendmail
+    self.ehlo_or_helo_if_needed()
+  File "/usr/lib/python3.6/smtplib.py", line 600, in ehlo_or_helo_if_needed
+    if not (200 <= self.ehlo()[0] <= 299):
+  File "/usr/lib/python3.6/smtplib.py", line 440, in ehlo
+    self.putcmd(self.ehlo_msg, name or self.local_hostname)
+  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
+    self.send(str)
+  File "/usr/lib/python3.6/smtplib.py", line 359, in send
+    raise SMTPServerDisconnected('please run connect() first')
+smtplib.SMTPServerDisconnected: please run connect() first
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,50 +33,25 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 94, in user
-    return render_template('user.html', user=user, posts=posts, next_url=next_url, prev_url=prev_url)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 135, in render_template
-    context, ctx.app)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 117, in _render
-    rv = template.render(context)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
-    return original_render(self, *args, **kwargs)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
-    return self.environment.handle_exception(exc_info, True)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
-    raise value.with_traceback(tb)
-  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/lu2905363/PycharmProjects/flask/app/templates/base.html", line 31, in top-level template code
-    {% block content %}{% endblock %}
-  File "/home/lu2905363/PycharmProjects/flask/app/templates/user.html", line 23, in block "content"
-    {% for post in posts %}
-TypeError: 'Pagination' object is not iterable
-2018-08-25 12:52:17,701 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 12:52:56,317 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 12:53:44,801 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
-2018-08-25 13:02:59,894 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 13:12:20,754 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 13:17:01,287 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 13:21:17,045 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 13:23:04,488 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 13:24:11,295 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 13:26:19,107 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 14:08:52,683 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 14:08:57,178 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 14:09:36,498 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 14:10:28,906 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 14:12:32,042 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:47]
-2018-08-25 14:31:34,910 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:31:40,444 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:33:28,433 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:34:43,490 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:42:32,638 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:42:34,328 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:42:51,204 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:44:00,634 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 14:44:44,151 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 155, in reset_password_request
+    send_password_reset_email(user)
+  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 17, in send_password_reset_email
+    html_body=render_template('email/reset_password.html', user=user, token=token)
+  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 10, in send_email
+    mail.send(msg)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 152, in __exit__
+    self.host.quit()
+  File "/usr/lib/python3.6/smtplib.py", line 984, in quit
+    res = self.docmd("quit")
+  File "/usr/lib/python3.6/smtplib.py", line 420, in docmd
+    self.putcmd(cmd, args)
+  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
+    self.send(str)
+  File "/usr/lib/python3.6/smtplib.py", line 359, in send
+    raise SMTPServerDisconnected('please run connect() first')
+smtplib.SMTPServerDisconnected: please run connect() first
+2018-08-25 18:28:26,730 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 18:28:47,609 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 18:31:00,651 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
