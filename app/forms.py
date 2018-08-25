@@ -49,5 +49,5 @@ class EditProfileForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Write down what you are thinking about', validators=[DataRequired(), Length(min=1, max=140)])
+    post = TextAreaField('Write down what you are thinking about below', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
