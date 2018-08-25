@@ -169,8 +169,11 @@ def reset_password(token):
         return redirect(url_for('index'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user.set_password(form.password.data)
-        db.session.commit()
-        flash('You have successfully reset your password!')
+        if user.check_password(form.password.data):
+            flash('Please use a password different from your original one. You can access the reset page from the link in your email within 10 minutes')
+        else:
+            user.set_password(form.password.data)
+            db.session.commit()
+            flash('You have successfully reset your password!')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
