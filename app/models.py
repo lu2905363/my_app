@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from hashlib import md5
 from app import db, login
 from flask_login import UserMixin
@@ -19,7 +19,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
-    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow()+timedelta(hours=8))
     followed = db.relationship(
         'User', secondary=followers,  # right side entity of the relationship; configuring the association table
         primaryjoin=(followers.c.follower_id == id),
