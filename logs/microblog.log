@@ -40,3 +40,6 @@ jinja2.exceptions.UndefinedError: 'form' is undefined
 2018-08-25 11:23:28,784 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
 2018-08-25 11:32:11,398 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
 2018-08-25 11:34:31,724 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 11:50:22,113 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 11:52:45,471 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
+2018-08-25 11:53:52,689 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:43]
