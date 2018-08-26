@@ -1,25 +1,4 @@
-2018-08-25 18:05:26,601 ERROR: Exception on /reset_password_request [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 192, in send
-    message.rcpt_options)
-  File "/usr/lib/python3.6/smtplib.py", line 852, in sendmail
-    self.ehlo_or_helo_if_needed()
-  File "/usr/lib/python3.6/smtplib.py", line 600, in ehlo_or_helo_if_needed
-    if not (200 <= self.ehlo()[0] <= 299):
-  File "/usr/lib/python3.6/smtplib.py", line 440, in ehlo
-    self.putcmd(self.ehlo_msg, name or self.local_hostname)
-  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
-    self.send(str)
-  File "/usr/lib/python3.6/smtplib.py", line 359, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-
-During handling of the above exception, another exception occurred:
-
+2018-08-25 19:06:09,053 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk1NzM2LjQ5MjQ4MDV9.GkdcO5c8lvnD4IoaK-7anr0pZQt0SncNhT9yFeYC32g [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -33,49 +12,24 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 155, in reset_password_request
-    send_password_reset_email(user)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 17, in send_password_reset_email
-    html_body=render_template('email/reset_password.html', user=user, token=token)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 10, in send_email
-    mail.send(msg)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 152, in __exit__
-    self.host.quit()
-  File "/usr/lib/python3.6/smtplib.py", line 984, in quit
-    res = self.docmd("quit")
-  File "/usr/lib/python3.6/smtplib.py", line 420, in docmd
-    self.putcmd(cmd, args)
-  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
-    self.send(str)
-  File "/usr/lib/python3.6/smtplib.py", line 359, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-2018-08-25 18:07:58,212 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:17:58,679 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:18:17,119 ERROR: Exception on /reset_password_request [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 192, in send
-    message.rcpt_options)
-  File "/usr/lib/python3.6/smtplib.py", line 852, in sendmail
-    self.ehlo_or_helo_if_needed()
-  File "/usr/lib/python3.6/smtplib.py", line 600, in ehlo_or_helo_if_needed
-    if not (200 <= self.ehlo()[0] <= 299):
-  File "/usr/lib/python3.6/smtplib.py", line 440, in ehlo
-    self.putcmd(self.ehlo_msg, name or self.local_hostname)
-  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
-    self.send(str)
-  File "/usr/lib/python3.6/smtplib.py", line 359, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-
-During handling of the above exception, another exception occurred:
-
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 176, in reset_password
+    return render_template('reset_password.html', form=form)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 134, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 113, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 58, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 86, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: reset_password.html
+2018-08-25 19:06:38,992 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk1NzM2LjQ5MjQ4MDV9.GkdcO5c8lvnD4IoaK-7anr0pZQt0SncNhT9yFeYC32g [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -89,24 +43,55 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 155, in reset_password_request
-    send_password_reset_email(user)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 17, in send_password_reset_email
-    html_body=render_template('email/reset_password.html', user=user, token=token)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 10, in send_email
-    mail.send(msg)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 152, in __exit__
-    self.host.quit()
-  File "/usr/lib/python3.6/smtplib.py", line 984, in quit
-    res = self.docmd("quit")
-  File "/usr/lib/python3.6/smtplib.py", line 420, in docmd
-    self.putcmd(cmd, args)
-  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
-    self.send(str)
-  File "/usr/lib/python3.6/smtplib.py", line 359, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-2018-08-25 18:25:11,149 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:27:13,406 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 176, in reset_password
+    return render_template('reset_password.html', form=form)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 134, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 113, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 58, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 86, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: reset_password.html
+2018-08-25 19:06:59,208 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:07:25,119 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk1ODI1LjM0MTU4MjV9.fZUSj4cxdtbgn6ljUPzmPo-P0wBrTI9xVifFKfe9db8 [GET] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 176, in reset_password
+    return render_template('reset_password.html', form=form)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 134, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 113, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 58, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/templating.py", line 86, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: reset_password.html
+2018-08-25 19:11:19,727 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:15:34,403 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:18:48,227 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
