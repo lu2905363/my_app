@@ -1,25 +1,4 @@
-2018-08-25 18:27:26,685 ERROR: Exception on /reset_password_request [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
-Traceback (most recent call last):
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 192, in send
-    message.rcpt_options)
-  File "/usr/lib/python3.6/smtplib.py", line 852, in sendmail
-    self.ehlo_or_helo_if_needed()
-  File "/usr/lib/python3.6/smtplib.py", line 600, in ehlo_or_helo_if_needed
-    if not (200 <= self.ehlo()[0] <= 299):
-  File "/usr/lib/python3.6/smtplib.py", line 440, in ehlo
-    self.putcmd(self.ehlo_msg, name or self.local_hostname)
-  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
-    self.send(str)
-  File "/usr/lib/python3.6/smtplib.py", line 359, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-
-During handling of the above exception, another exception occurred:
-
+2018-08-25 19:19:27,192 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk2NTQ5LjIyODE1Mzd9.zXOhLZFxLoJ7x1K_EJwc-FfBqZNeXl7hYu72JWgRxd4 [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -33,31 +12,21 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 155, in reset_password_request
-    send_password_reset_email(user)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 17, in send_password_reset_email
-    html_body=render_template('email/reset_password.html', user=user, token=token)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 10, in send_email
-    mail.send(msg)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 152, in __exit__
-    self.host.quit()
-  File "/usr/lib/python3.6/smtplib.py", line 984, in quit
-    res = self.docmd("quit")
-  File "/usr/lib/python3.6/smtplib.py", line 420, in docmd
-    self.putcmd(cmd, args)
-  File "/usr/lib/python3.6/smtplib.py", line 367, in putcmd
-    self.send(str)
-  File "/usr/lib/python3.6/smtplib.py", line 359, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-2018-08-25 18:28:26,730 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:28:47,609 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:31:00,651 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:34:07,613 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:55:16,055 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:56:10,956 ERROR: Exception on /reset_password_request [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 174, in reset_password
+    return redirect(url_for('/reset_password/<token>'))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 356, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2061, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 345, in url_for
+    force_external=external)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 1776, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint '/reset_password/<token>'. Did you mean 'reset_password' instead?
+2018-08-25 19:20:21,147 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:21:09,805 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk2NTQ5LjIyODE1Mzd9.zXOhLZFxLoJ7x1K_EJwc-FfBqZNeXl7hYu72JWgRxd4 [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -71,27 +40,21 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 155, in reset_password_request
-    send_password_reset_email(user)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 17, in send_password_reset_email
-    html_body=render_template('email/reset_password.html', user=user, token=token)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 10, in send_email
-    mail.send(msg)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 491, in send
-    with self.connect() as connection:
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 144, in __enter__
-    self.host = self.configure_host()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 165, in configure_host
-    host.login(self.mail.username, self.mail.password)
-  File "/usr/lib/python3.6/smtplib.py", line 730, in login
-    raise last_exception
-  File "/usr/lib/python3.6/smtplib.py", line 721, in login
-    initial_response_ok=initial_response_ok)
-  File "/usr/lib/python3.6/smtplib.py", line 642, in auth
-    raise SMTPAuthenticationError(code, resp)
-smtplib.SMTPAuthenticationError: (535, b'Error: \xc7\xeb\xca\xb9\xd3\xc3\xca\xda\xc8\xa8\xc2\xeb\xb5\xc7\xc2\xbc\xa1\xa3\xcf\xea\xc7\xe9\xc7\xeb\xbf\xb4: http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256')
-2018-08-25 18:57:51,445 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
-2018-08-25 18:58:00,786 ERROR: Exception on /reset_password_request [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 174, in reset_password
+    return redirect(url_for('/reset_password'))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 356, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2061, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 345, in url_for
+    force_external=external)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 1776, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint '/reset_password'. Did you mean 'reset_password' instead?
+2018-08-25 19:21:37,435 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:21:54,622 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTM1MTk2NTQ5LjIyODE1Mzd9.zXOhLZFxLoJ7x1K_EJwc-FfBqZNeXl7hYu72JWgRxd4 [POST] [in /home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py:1761]
 Traceback (most recent call last):
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -105,23 +68,24 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 155, in reset_password_request
-    send_password_reset_email(user)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 17, in send_password_reset_email
-    html_body=render_template('email/reset_password.html', user=user, token=token)
-  File "/home/lu2905363/PycharmProjects/flask/app/email.py", line 10, in send_email
-    mail.send(msg)
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 491, in send
-    with self.connect() as connection:
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 144, in __enter__
-    self.host = self.configure_host()
-  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask_mail.py", line 165, in configure_host
-    host.login(self.mail.username, self.mail.password)
-  File "/usr/lib/python3.6/smtplib.py", line 730, in login
-    raise last_exception
-  File "/usr/lib/python3.6/smtplib.py", line 721, in login
-    initial_response_ok=initial_response_ok)
-  File "/usr/lib/python3.6/smtplib.py", line 642, in auth
-    raise SMTPAuthenticationError(code, resp)
-smtplib.SMTPAuthenticationError: (535, b'Error: \xc7\xeb\xca\xb9\xd3\xc3\xca\xda\xc8\xa8\xc2\xeb\xb5\xc7\xc2\xbc\xa1\xa3\xcf\xea\xc7\xe9\xc7\xeb\xbf\xb4: http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256')
-2018-08-25 19:04:53,536 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+  File "/home/lu2905363/PycharmProjects/flask/app/routes.py", line 174, in reset_password
+    return redirect(url_for('reset_password'))
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 356, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/app.py", line 2061, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/flask/helpers.py", line 345, in url_for
+    force_external=external)
+  File "/home/lu2905363/PycharmProjects/flask/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 1776, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'reset_password'. Did you forget to specify values ['token']?
+2018-08-25 19:23:44,161 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:25:34,614 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:27:03,357 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:40:43,855 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:48]
+2018-08-25 19:46:53,113 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 19:47:34,420 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 19:49:12,450 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
+2018-08-25 20:03:42,649 INFO: Microblog startup [in /home/lu2905363/PycharmProjects/flask/app/__init__.py:50]
