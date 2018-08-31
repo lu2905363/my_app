@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+
+Please find the archive of your posts that you requested in attachments.
+
+Sincerely,
+
+The Microblog Team

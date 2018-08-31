@@ -9,6 +9,8 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from config import Config
+from redis import Redis
+import rq
 
 db = SQLAlchemy()
 mail = Mail()
@@ -30,6 +32,8 @@ def create_app(config_class=Config):
     mail.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
+    app.redis = Redis.from_url(app.config['REDIS_URL'])
+    app.task_queue = rq.Queue('microblog-tasks', connection=app.redis)
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
@@ -48,7 +52,7 @@ def create_app(config_class=Config):
             secure = ()
         mail_handler = SMTPHandler(
             mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
-            fromaddr='lu2905363@' + app.config['MAIL_SERVER'],
+            fromaddr=app.config['MAIL_USERNAME'],
             toaddrs=app.config['ADMINS'][1], subject='Microblog Failure',
             credentials=auth, secure=secure)
         mail_handler.setLevel(logging.ERROR)

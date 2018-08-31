@@ -6,6 +6,7 @@ from app.main import bp
 from app.main.forms import EditProfileForm, PostForm, MessageForm
 from app.models import User, Post, Message, Notification
 
+
 @bp.before_request
 def before_request():
     if current_user.is_authenticated:
@@ -111,6 +112,17 @@ def notifications():
         [{'name': n.name, 'data': n.get_data(), 'timestamp': n.timestamp}
          for n in notifications]
     )
+
+
+@bp.route('/exports_posts')
+@login_required
+def export_posts():
+    if current_user.get_task_in_progress('export_posts'):
+        flash('The export task is currently in progress.')
+    else:
+        current_user.launch_task('export_posts', 'Exporting posts...')
+        db.session.commit()
+    return redirect(url_for('main.user', username=current_user.username))
 
 
 @bp.route('/follow/<username>')
