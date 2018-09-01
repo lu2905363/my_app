@@ -81,4 +81,4 @@ def reset_password(token):
             db.session.commit()
             flash('You have successfully reset your password!')
         return redirect(url_for('auth.login'))
-    return render_template('auth.reset_password.html', form=form)
+    return render_template('auth/reset_password.html', form=form)
