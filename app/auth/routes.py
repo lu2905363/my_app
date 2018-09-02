@@ -18,7 +18,6 @@ def before_request():
             return redirect(url_for('auth.unconfirmed'))
 
 
-
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:

@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% import '_macros.html' as macros %}
 
 {% block app_content %}
     <table class="table table-hover">
         <tr valign="top">
-            <td width="256px"><img src="{{ user.avatar(300) }}"></td>
+            <td width="256px"><img src="{{ user.avatar(256) }}"></td>
             <td>
                 <h1>{{ user.username }}</h1>
             {% if user.name or user.location %}
@@ -62,18 +63,7 @@
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}
-     <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Newer posts
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Older posts <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+     <div class="pagination">
+            {{ macros.pagination_widget(pagination, 'main.user', username=user.username)}}
+    </div>
 {% endblock %}
