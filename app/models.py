@@ -5,9 +5,11 @@ from app import db, login
 from flask import current_app, url_for
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import jwt
 import json
 import rq
+from rq import exceptions
 import redis
 import base64
 import os
@@ -32,7 +34,7 @@ class PaginatedAPIMixin(object):
                 'total_pages': resources.pages,
                 'total_items': resources.total
             },
-            '_links':{
+            '_links': {
                 'self': url_for(endpoint, page=page, per_page=per_page, **kwargs),
                 'next': url_for(endpoint, page=page + 1, per_page=per_page, **kwargs) if resources.has_next else None,
                 'prev': url_for(endpoint, page=page - 1, per_page=per_page, **kwargs) if resources.has_prev else None
@@ -46,7 +48,10 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    confirmed = db.Column(db.Boolean, default=False)
+
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow())
 
@@ -77,8 +82,24 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def generate_confirmation_token(self, expires_in=600):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_in)
+        return s.dumps({'confirm': self.id}).decode('utf-8')
+
+    def verify_registration_token(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token.encode('utf-8'))
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        return True
+
     def get_reset_password_token(self, expires_in=600):
-        return jwt.encode({'reset_password':self.id, 'exp':time()+expires_in}, current_app.config['SECRET_KEY'],
+        return jwt.encode({'reset_password': self.id, 'exp': time()+expires_in}, current_app.config['SECRET_KEY'],
                           algorithm='HS256').decode('utf-8')
 
     @staticmethod
@@ -166,7 +187,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         if self.token and self.token_expiration > now + timedelta(seconds=60):
             return self.token
         self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
-        self.token_expiration = now +timedelta(seconds=expires_in)
+        self.token_expiration = now + timedelta(seconds=expires_in)
         db.session.add(self)
         return self.token
 
@@ -180,9 +201,19 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             return None
         return user
 
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    users = db.relationship('User', backref='role', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Role {}>'.format(self.name)
 
 
 class Post(db.Model):
@@ -227,12 +258,10 @@ class Task(db.Model):
     def get_rq_job(self):
         try:
             rq_job = rq.job.Job.fetch(self.id, connection=current_app.redis)
-        except (redis.exceptions.RedisError, rq.exceptions.NoSuchJobError):
+        except (redis.exceptions.RedisError, exceptions.NoSuchJobError):
             return None
         return rq_job
 
     def get_progress(self):
         job = self.get_rq_job()
         return job.meta.get('progress', 0) if job is not None else 100
-
-

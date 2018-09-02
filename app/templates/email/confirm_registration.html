@@ -1,0 +1,9 @@
+<p>Dear {{ user.username }},</p>
+<p>Welcome to Microblog!</p>
+<p>
+    To confirm your registration, please <a href="{{ url_for('auth.confirm',
+     token=token, _external=True) }}">click here
+    </a>.
+</p>
+<p>Yours Sincerely,</p>
+<p>The Microblog Team</p>

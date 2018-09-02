@@ -18,5 +18,5 @@ def send_email(subject, sender, recipients, text_body, html_body, attachments=No
 
 
 def send_async_email(app, msg):
-    with app.app.context():
+    with app.app_context():
         mail.send(msg)

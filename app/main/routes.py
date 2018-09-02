@@ -10,6 +10,8 @@ from app.models import User, Post, Message, Notification
 @bp.before_request
 def before_request():
     if current_user.is_authenticated:
+        if not current_user.confirmed and request.blueprint != 'auth' and request.endpoint != 'static':
+            return redirect(url_for('auth.unconfirmed'))
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 

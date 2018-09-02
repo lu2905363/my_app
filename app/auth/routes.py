@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 from app import db
 from app.auth import bp
 from app.auth.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm
-from app.auth.email import send_password_reset_email
+from app.auth.email import send_registration_confirm_email, send_password_reset_email
 from app.models import User
 
 
@@ -43,9 +43,38 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        send_registration_confirm_email(user)
+        flash('A confirmation email has been sent to your email address for verification.')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
+
+
+@bp.route('/resend_confirmation')
+@login_required
+def resend_confirmation():
+    send_registration_confirm_email(current_user)
+    flash('A new confirmation email has been sent to your email address for verification.')
+    return redirect(url_for('main.index'))
+
+
+@bp.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    if current_user.confirmed:
+        return redirect(url_for('main.index'))
+    if current_user.verify_registration_token(token):
+        flash('Congratulations! You have confirmed your registration and become a new user.')
+        db.session.commit()
+    else:
+        flash('The confirmation link is invalid or has expired.')
+    return redirect(url_for('main.index'))
+
+
+@bp.route('/unconfirmed')
+def unconfirmed():
+    if current_user.is_anonymous or current_user.confirmed:
+        return redirect(url_for('main.index'))
+    return render_template('auth/unconfirmed.html')
 
 
 @bp.route('/reset_password_request', methods=['GET', 'POST'])
@@ -57,7 +86,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-            flash('Reset mail has been sent. Check your mailbox and follow the instructions please.')
+            flash('Password-resetting mail has been sent. Check your inbox as soon as possible.')
         else:
             flash('Invalid email address. Try entering the email address of your logging account.')
         return redirect(url_for('auth.login'))
