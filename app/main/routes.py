@@ -2,18 +2,10 @@ from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, current_app, jsonify
 from flask_login import current_user, login_required
 from app import db
+from app.decorators import admin_required
 from app.main import bp
-from app.main.forms import EditProfileForm, PostForm, MessageForm
-from app.models import User, Post, Message, Notification
-
-
-@bp.before_request
-def before_request():
-    if current_user.is_authenticated:
-        if not current_user.confirmed and request.blueprint != 'auth' and request.endpoint != 'static':
-            return redirect(url_for('auth.unconfirmed'))
-        current_user.last_seen = datetime.utcnow()
-        db.session.commit()
+from app.main.forms import EditProfileForm, EditProfileAdminForm, PostForm, MessageForm
+from app.models import User, Post, Role, Message, Notification, Permission
 
 
 @bp.route('/explore')
@@ -24,7 +16,7 @@ def explore():
     next_url = url_for('main.explore', page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.explore', page=posts.prev_num) if posts.has_prev else None
     return render_template('index.html', title='Explore some new friends', posts=posts.items, next_url=next_url,
-                           prev_url=prev_url)
+                           prev_url=prev_url, Permission=Permission)
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -32,7 +24,7 @@ def explore():
 @login_required
 def index():
     form = PostForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and current_user.can(Permission.WRITE):
         post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
@@ -43,7 +35,7 @@ def index():
     next_url = url_for('main.index', page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.index', page=posts.prev_num) if posts.has_prev else None
     return render_template('index.html', title='Home', form=form, posts=posts.items, next_url=next_url,
-                           prev_url=prev_url)
+                           prev_url=prev_url, Permission=Permission)
 
 
 @bp.route('/user/<username>')
@@ -62,16 +54,48 @@ def user(username):
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
+        current_user.name = form.name.data
+        current_user.location = form.location.data
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash('Your personal profiles has been updated.')
         return redirect(url_for('main.edit_profile'))
     elif request.method == 'GET':
+        form.name.data = current_user.name
+        form.location.data = current_user.location
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+
+
+@bp.route('/edit_profile/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_profile_admin(id):
+    user = User.query.get_or_404(id)
+    form = EditProfileAdminForm(user=user)
+    if form.validate_on_submit():
+        user.email = form.email.data
+        user.username = form.username.data
+        user.confirmed = form.confirmed.data
+        user.role = Role.query.get(form.role.data)
+        user.name = form.name.data
+        user.location = form.location.data
+        user.about_me = form.about_me.data
+        db.session.add(user)
+        db.session.commit()
+        flash('The profile has been updated.')
+        return redirect(url_for('main.user', username=user.username))
+    form.email.data = user.email
+    form.username.data = user.username
+    form.confirmed.data = user.confirmed
+    form.role.data = user.role_id
+    form.name.data = user.name
+    form.location.data = user.location
+    form.about_me.data = user.about_me
+    return render_template('edit_profile.html', form=form, user=user)
 
 
 @bp.route('/send_message/<recipient>', methods=['GET', 'POST'])

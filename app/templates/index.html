@@ -5,7 +5,9 @@
     <h1>Hi, {{ current_user.username }}!</h1>
     {% if form %}
         <div class="col-md-4">
+        {% if current_user.can(Permission.WRITE) %}
              {{ wtf.quick_form(form) }}
+        {% endif %}
         </div>
         <br>
     {% endif %}
