@@ -19,4 +19,4 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['lu2905363@qq.com', 'lu290363@gmail.com']
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
-    POST_PER_PAGE = 5
+    POSTS_PER_PAGE = 5
