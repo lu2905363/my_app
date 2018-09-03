@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
+from flask_pagedown import PageDown
 from flask_moment import Moment
 from config import Config
 from redis import Redis
@@ -16,8 +17,9 @@ db = SQLAlchemy()
 mail = Mail()
 migrate = Migrate()
 login = LoginManager()
+pagedown = PageDown()
 login.login_view = 'auth.login'
-login.login_message = 'Please log in to access.'
+login.login_message = 'Please log in to access the Microblog.'
 bootstrap = Bootstrap()
 moment = Moment()
 
@@ -32,6 +34,7 @@ def create_app(config_class=Config):
     mail.init_app(app)
     bootstrap.init_app(app)
     moment.init_app(app)
+    pagedown.init_app(app)
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     app.task_queue = rq.Queue('microblog-tasks', connection=app.redis)
 

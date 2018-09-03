@@ -6,6 +6,7 @@ from flask import current_app, url_for
 from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from markdown import markdown
 import jwt
 import json
 import rq
@@ -13,6 +14,7 @@ from rq import exceptions
 import redis
 import base64
 import os
+import bleach
 
 
 followers = db.Table(
@@ -87,6 +89,10 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable aattribute.')
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -155,8 +161,8 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             followers.c.followed_id == user.id).count() == 1
 
     def followed_posts(self):
-        followed = Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id)
+        followed = Post.query.join(followers,
+                                   (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
@@ -293,11 +299,23 @@ class Permission:
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
+    body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
+                        'h1', 'h2', 'h3', 'p']
+        target.body_html = bleach.linkify(bleach.clean(markdown(value, output_format='html'),
+                                                       tags=allowed_tags, strip=True))
+
+db.event.listen(Post.body, 'set', Post.on_changed_body)
+
+
 
 
 class Message(db.Model):

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request, current_app, jsonify
+from flask import render_template, flash, redirect, url_for, request, current_app, jsonify, abort
 from flask_login import current_user, login_required
 from app import db
 from app.decorators import admin_required
@@ -154,7 +154,7 @@ def follow(username):
         return redirect(url_for('main.index'))
     if user == current_user:
         flash('You cannot follow yourself!')
-        return redirect(url_for('user', username=username))
+        return redirect(url_for('main.user', username=username))
     current_user.follow(user)
     db.session.commit()
     flash('You have successfully followed {}!'.format(username))
@@ -167,7 +167,7 @@ def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash('User {} not found.'.format(username))
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     if user == current_user:
         flash('You cannot unfollow yourself!')
         return redirect(url_for('main.user', username=username))
@@ -175,3 +175,52 @@ def unfollow(username):
     db.session.commit()
     flash('You\'re no longer following {}.'.format(username))
     return redirect(url_for('main.user', username=username))
+
+
+@bp.route('/followers/<username>')
+def followers(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('main.index'))
+    page = request.args.get('page', 1, type=int)
+    followers = user.followers.paginate(page, current_app.config['POSTS_PER_PAGE'], error_out=False)
+    follows = [{'user': item, 'timestamp': item.last_seen} for item in followers.items]
+    return render_template('followers.html', user=user, title='Followers of', endpoint='main.followers',
+                           pagination=followers, follows=follows, Permission=Permission)
+
+
+@bp.route('/followed_by/<username>')
+def followed_by(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('main.index'))
+    page = request.args.get('page', 1, type=int)
+    followed_by = user.followed.paginate(page, current_app.config['POSTS_PER_PAGE'], error_out=False)
+    followed = [{'user': item, 'timestamp': item.last_seen} for item in followed_by.items]
+    return render_template('followers.html', user=user, title='Followers of', endpoint='main.followers',
+                           pagination=followed_by, follows=followed, Permission=Permission)
+
+
+@bp.route('/posts/<int:id>')
+def post(id):
+    post = Post.query.get_or_404(id)
+    return render_template('post.html', post=post)
+
+
+@bp.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author and not current_user.can(Permission.ADMIN):
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.body = form.post.data
+        db.session.add(post)
+        db.session.commit()
+        flash('The post has been updated.')
+        return redirect(url_for('main.post', id=post.id))
+    form.post.data = post.body
+    return render_template('edit_post.html', form=form)

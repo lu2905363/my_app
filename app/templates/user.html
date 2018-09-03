@@ -3,10 +3,10 @@
 
 {% block app_content %}
     <table class="table table-hover">
-        <tr valign="top">
-            <td width="256px"><img src="{{ user.avatar(256) }}"></td>
+        <tr>
+            <td style="vertical-align: middle" width="256px"><img src="{{ user.avatar(256) }}"></td>
             <td>
-                <h1>{{ user.username }}</h1>
+                <h2>{{ user.username }}</h2>
             {% if user.name or user.location %}
             <p>
                 {% if user.name %}{{ user.name }}
@@ -24,46 +24,48 @@
                     <p>{{ user.about_me }}</p>
                 {% endif %}
                 <p>
-                    Member since {{ moment(user.member_since).format('L')}}.<br>
+                    Member since: {{ moment(user.member_since).format('L')}}.<br>
                     {% if user.last_seen %}
                         Last seen on: {{ moment(user.last_seen).format('LLL')}}
                     {% endif %}
                 </p>
-                <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
                 <p>
+                    <a href= "{{ url_for('main.followers', username=user.username) }}">
+                        Followers:</a><span class="label label-success">{{ user.followers.count() }}</span>
+                    <a href="{{ url_for('main.followed_by', username=user.username) }}" >
+                        Followers:</a><span class="label label-success">{{ user.followed.count() }}</span>
+                    {% if current_user.is_authenticated and user != current_user and user.is_following(current_user)%}
+                        <span class="label label-success">He/She is following you</span>
+                    {% endif %}
+                </p>
                     {% if current_user == user %}
-                    <a class="btn btn-default" href="{{ url_for('main.edit_profile') }}">Edit your profile</a>
-                    {% if current_user.is_administrator() %}
-                        <a class="btn btn-danger"
-                           href="{{ url_for('main.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
+                        <a class="btn btn-default" href="{{ url_for('main.edit_profile') }}">Edit your profile</a>
+                        {% if current_user.is_administrator() %}
+                            <a class="btn btn-danger"
+                               href="{{ url_for('main.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
+                        {% endif %}
+                        {% if not current_user.get_task_in_progress('exports_posts')%}
+                            <a class="btn btn-info disabled" href="{{ url_for('main.export_posts') }}">{{ 'Export your posts' }}</a>
+                        {% endif %}
+                    {% elif current_user.can(Permission.FOLLOW) %}
+                        {% if not current_user.is_following(user) %}
+                            <a class="btn btn-primary" href="{{ url_for('main.follow', username=user.username) }}">Follow</a>
+                        {% else %}
+                            <a class="btn btn-warning" href="{{ url_for('main.unfollow', username=user.username) }}">Unfollow</a>
+                        {% endif %}
                     {% endif %}
-                    </p>
-                    {% if not current_user.get_task_in_progress('exports_posts')%}
-                    <p>
-                        <a class="btn btn-default" href="{{ url_for('main.export_posts') }}">{{ 'Export your posts' }}</a>
-                    </p>
-                    {% endif %}
-                {% elif not current_user.is_following(user) %}
-                <p><a href="{{ url_for('main.follow', username=user.username) }}">Follow</a></p>
-                {% else %}
-                <p><a href="{{ url_for('main.unfollow', username=user.username) }}">Unfollow</a></p>
-                {% endif %}
-
                 {% if user != current_user %}
-                    <p>
-                        <a href="{{ url_for('main.send_message', recipient= user.username) }}">
+                        <a class="btn btn-primary" href="{{ url_for('main.send_message', recipient= user.username) }}">
                             {{'Send private message'}}
                         </a>
-                    </p>
                 {% endif %}
             </td>
         </tr>
     </table>
-    <hr>
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}
      <div class="pagination">
-            {{ macros.pagination_widget(pagination, 'main.user', username=user.username)}}
+            {{ macros.pagination_widget(pagination, 'main.user', username = user.username)}}
     </div>
 {% endblock %}
