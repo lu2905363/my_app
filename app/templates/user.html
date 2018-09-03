@@ -32,8 +32,8 @@
                 <p>
                     <a href= "{{ url_for('main.followers', username=user.username) }}">
                         Followers:</a><span class="label label-success">{{ user.followers.count() }}</span>
-                    <a href="{{ url_for('main.followed_by', username=user.username) }}" >
-                        Followers:</a><span class="label label-success">{{ user.followed.count() }}</span>
+                    <a href="{{ url_for('main.followed', username=user.username) }}" >
+                        Followed:</a><span class="label label-success">{{ user.followed.count() }}</span>
                     {% if current_user.is_authenticated and user != current_user and user.is_following(current_user)%}
                         <span class="label label-success">He/She is following you</span>
                     {% endif %}

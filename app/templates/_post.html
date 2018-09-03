@@ -15,6 +15,9 @@
                 <div class="post-footer" align="right">
                     <a href="{{ url_for('main.post', id=post.id) }}">
                         <span class="label label-info">Link</span></a>
+                    <a href="{{ url_for('main.post', id=post.id) }}#comments">
+                        <span class="label label-primary">{{ post.comments.count() }} Comments</span>
+                    </a>
                     {% if current_user == post.author %}
                         <a href="{{url_for('main.edit', id=post.id) }}">
                         <span class="label label-primary">Edit</span>

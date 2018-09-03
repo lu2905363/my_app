@@ -8,6 +8,13 @@
         {% endif %}
 {% endblock %}
 
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
 {% block navbar %}
     <nav class="navbar navbar-default">
         <div class="container">
@@ -24,6 +31,9 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
                     <li><a href="{{ url_for('main.explore') }}">Explore</a></li>
+                    {% if current_user.can(Permission.MODERATE) %}
+                        <li><a href="{{ url_for('main.moderate') }}">Moderate Comments</a> </li>
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
@@ -46,7 +56,6 @@
                 </ul>
             </div>
         </div>
-
     </nav>
 {% endblock %}
 
