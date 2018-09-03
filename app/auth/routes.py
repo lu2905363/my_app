@@ -9,7 +9,7 @@ from app.auth.email import send_registration_confirm_email, send_password_reset_
 from app.models import User, Permission
 
 
-@bp.before_request
+@bp.before_app_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()

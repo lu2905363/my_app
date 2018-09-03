@@ -13,6 +13,7 @@
                     {% endif %}
                 </div>
                 <div class="post-footer" align="right">
+                {% if not prev_url and next_url %}
                     <a href="{{ url_for('main.post', id=post.id) }}">
                         <span class="label label-info">Link</span></a>
                     <a href="{{ url_for('main.post', id=post.id) }}#comments">
@@ -27,6 +28,7 @@
                         <span class="label label-danger">Edit [Admin]</span>
                         </a>
                     {% endif %}
+                {% endif %}
                 </div>
             </td>
         </tr>
