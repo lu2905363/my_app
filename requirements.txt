@@ -1,6 +1,6 @@
 alembic==1.0.0
 arrow==0.12.1
-bleach==2.1.4
+bleach==3.3.0
 blinker==1.4
 certifi==2018.8.24
 chardet==3.0.4
