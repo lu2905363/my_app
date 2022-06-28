@@ -1,5 +1,5 @@
 alembic==1.0.0
-arrow==0.12.1
+arrow==0.15.1
 bleach==2.1.4
 blinker==1.4
 certifi==2018.8.24
